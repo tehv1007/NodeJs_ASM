@@ -25,13 +25,21 @@ const errorController = require('./controllers/error');
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGODB);
-    console.log("Connected to mongoDB.");
+    console.log("---------------------------------------------------")
+    console.log("NOTE: ready states being:")
+    console.log("0: disconnected")
+    console.log("1: connected")
+    console.log("2: connecting")
+    console.log("3: disconnecting")
+    console.log("---------------------------------------------------")
+    console.log("Ready state:" + mongoose.connection.readyState);
   } catch (error) {
     throw error;
   }
 };
 
 mongoose.connection.on("disconnected", () => {
+  console.log("Ready state:" + mongoose.connection.readyState);
   console.log("mongoDB disconnected!");
 });
 
